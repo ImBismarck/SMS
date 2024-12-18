@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "spaces.h"
 #include "data.h"
+#include "utilities.h"
 
 int loadFile(SpaceManager *manager)
 {

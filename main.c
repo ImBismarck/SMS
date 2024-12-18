@@ -34,6 +34,7 @@ int main()
             smsMenu(&manager);
             break;
         case 2:
+
             if (loadFile(&manager) >= 0)
             {
                 puts("File loaded successfully.");

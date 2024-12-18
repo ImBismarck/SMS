@@ -2,13 +2,7 @@
 #include <stdlib.h>
 #include "spaces.h"
 #include "data.h"
-
-void pressAnyKeyToGoBack()
-{
-    puts("\nEnter any key to go back...");
-    getchar(); // clear input buffer
-    getchar(); // wait for user input
-}
+#include "utilities.h"
 
 void viewAllSpaces(SpaceManager *manager)
 {
