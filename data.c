@@ -8,38 +8,25 @@ int loadFile(SpaceManager *manager)
 {
     char line[256];
     FILE *file = fopen("spaces.csv", "r");
-    int count = 0;
+    int countSpaces = 0;
     int index = 0;
 
     if (file == NULL)
     {
-        printf("Error: Could not open file spaces.csv\n");
+        printf("Could not open file spaces.csv\n");
         return -1;
     }
 
     // Count the number of lines (spaces)
     while (fgets(line, sizeof(line), file))
     {
-        count++;
+        countSpaces++;
     }
-    rewind(file);
+    rewind(file); // reads file from the beginning
 
-    // Free existing memory if any
-    if (manager->spaces != NULL)
-    {
-        free(manager->spaces);
-    }
+    // Allocate memory to ensure the correct size for Space structures
+    manager->spaces = malloc(countSpaces * sizeof(*manager->spaces));
 
-    // Allocate memory dynamically
-    manager->spaces = (Space *)malloc(count * sizeof(Space));
-    if (manager->spaces == NULL)
-    {
-        printf("Error: Memory allocation failed\n");
-        fclose(file);
-        return -1;
-    }
-
-    // Read and parse the file into the dynamically allocated array
     while (fgets(line, sizeof(line), file))
     {
         char *cell;
@@ -59,7 +46,7 @@ int loadFile(SpaceManager *manager)
     }
     fclose(file);
 
-    manager->numSpaces = count;
+    manager->numSpaces = countSpaces;
     printf("Loaded %d spaces from file.\n", manager->numSpaces);
-    return count;
+    return countSpaces;
 }

@@ -7,7 +7,7 @@
 int main()
 {
     int choice;
-    SpaceManager manager = {NULL, 0}; // Initialize the struct
+    SpaceManager manager;
 
     do
     {
