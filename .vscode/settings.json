@@ -5,6 +5,7 @@
     "spaces.h": "c",
     "stdlib.h": "c",
     "string.h": "c",
-    "data.h": "c"
+    "data.h": "c",
+    "utilities.h": "c"
   }
 }

@@ -1,7 +1,7 @@
 #ifndef MENU_H
 #define MENU_H
 
-#include "spaces.h"
+#include "utilities.h"
 
 void smsMenu(SpaceManager *manager);
 
