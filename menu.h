@@ -3,6 +3,6 @@
 
 #include "spaces.h"
 
-void smsMenu(Space **spaces, int *numSpaces);
+void smsMenu(SpaceManager *manager);
 
 #endif

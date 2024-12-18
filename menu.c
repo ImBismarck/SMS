@@ -8,7 +8,7 @@ void manageReservations() {}
 void manageEquipments() {}
 void generateReports() {}
 
-void smsMenu(Space **spaces, int *numSpaces)
+void smsMenu(SpaceManager *manager)
 {
     int choice;
     do
@@ -35,7 +35,7 @@ void smsMenu(Space **spaces, int *numSpaces)
         switch (choice)
         {
         case 1:
-            spacesMenu(spaces, numSpaces);
+            spacesMenu(manager);
             break;
         case 2:
             manageClients();

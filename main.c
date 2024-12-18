@@ -7,8 +7,7 @@
 int main()
 {
     int choice;
-    Space *spaces = NULL;
-    int numSpaces = 0;
+    SpaceManager manager = {NULL, 0}; // Initialize the struct
 
     do
     {
@@ -32,21 +31,17 @@ int main()
         switch (choice)
         {
         case 1:
-            smsMenu(&spaces, &numSpaces);
+            smsMenu(&manager);
             break;
         case 2:
-        {
-            int loaded = loadFile(&spaces);
-            if (loaded >= 0)
+            if (loadFile(&manager) >= 0)
             {
-                numSpaces = loaded;
                 puts("File loaded successfully.");
             }
             break;
-        }
         case 4:
             puts("Exiting....");
-            free(spaces);
+            free(manager.spaces);
             return 0;
         default:
             puts("Invalid choice, Please try again.\n");

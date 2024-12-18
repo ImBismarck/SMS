@@ -3,6 +3,6 @@
 
 #include "spaces.h"
 
-int loadFile(Space **spaces); // Returns number of spaces loaded
+int loadFile(SpaceManager *manager);
 
 #endif

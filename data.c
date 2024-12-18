@@ -4,11 +4,11 @@
 #include "spaces.h"
 #include "data.h"
 
-int loadFile(Space **spaces)
+int loadFile(SpaceManager *manager)
 {
     char line[256];
     FILE *file = fopen("spaces.csv", "r");
-    int numSpaces = 0;
+    int count = 0;
     int index = 0;
 
     if (file == NULL)
@@ -20,19 +20,19 @@ int loadFile(Space **spaces)
     // Count the number of lines (spaces)
     while (fgets(line, sizeof(line), file))
     {
-        numSpaces++;
+        count++;
     }
     rewind(file);
 
     // Free existing memory if any
-    if (*spaces != NULL)
+    if (manager->spaces != NULL)
     {
-        free(*spaces);
+        free(manager->spaces);
     }
 
     // Allocate memory dynamically
-    *spaces = (Space *)malloc(numSpaces * sizeof(Space));
-    if (*spaces == NULL)
+    manager->spaces = (Space *)malloc(count * sizeof(Space));
+    if (manager->spaces == NULL)
     {
         printf("Error: Memory allocation failed\n");
         fclose(file);
@@ -44,21 +44,22 @@ int loadFile(Space **spaces)
     {
         char *cell;
         cell = strtok(line, ",");
-        (*spaces)[index].id = atoi(cell);
+        manager->spaces[index].id = atoi(cell);
 
         cell = strtok(NULL, ",");
-        strncpy((*spaces)[index].name, cell, MAX_NAME_LENGTH - 1);
+        strncpy(manager->spaces[index].name, cell, MAX_NAME_LENGTH - 1);
 
         cell = strtok(NULL, ",");
-        strncpy((*spaces)[index].type, cell, MAX_TYPE_LENGTH - 1);
+        strncpy(manager->spaces[index].type, cell, MAX_TYPE_LENGTH - 1);
 
         cell = strtok(NULL, ",");
-        (*spaces)[index].capacity = atoi(cell);
+        manager->spaces[index].capacity = atoi(cell);
 
         index++;
     }
     fclose(file);
 
-    printf("Loaded %d spaces from file.\n", numSpaces);
-    return numSpaces;
+    manager->numSpaces = count;
+    printf("Loaded %d spaces from file.\n", manager->numSpaces);
+    return count;
 }

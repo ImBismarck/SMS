@@ -12,7 +12,13 @@ typedef struct
     int capacity;
 } Space;
 
-void viewAllSpaces(Space *spaces, int numSpaces);
-void spacesMenu(Space **spaces, int *numSpaces);
+typedef struct
+{
+    Space *spaces;
+    int numSpaces;
+} SpaceManager;
+
+void viewAllSpaces(SpaceManager *list);
+void spacesMenu(SpaceManager *list);
 
 #endif

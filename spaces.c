@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "spaces.h"
+#include "data.h"
 
 void pressAnyKeyToGoBack()
 {
@@ -9,9 +10,9 @@ void pressAnyKeyToGoBack()
     getchar(); // wait for user input
 }
 
-void viewAllSpaces(Space *spaces, int numSpaces)
+void viewAllSpaces(SpaceManager *manager)
 {
-    if (numSpaces == 0)
+    if (manager->numSpaces == 0)
     {
         printf("No spaces loaded. Please load file first.\n");
         return;
@@ -21,17 +22,17 @@ void viewAllSpaces(Space *spaces, int numSpaces)
     printf("ID  Name                Type           Capacity\n");
     printf("-------------------------------------------\n");
 
-    for (int i = 0; i < numSpaces; i++)
+    for (int i = 0; i < manager->numSpaces; i++)
     {
         printf("%-3d %-18s %-15s %-10d\n",
-               spaces[i].id,
-               spaces[i].name,
-               spaces[i].type,
-               spaces[i].capacity);
+               manager->spaces[i].id,
+               manager->spaces[i].name,
+               manager->spaces[i].type,
+               manager->spaces[i].capacity);
     }
 }
 
-void spacesMenu(Space **spaces, int *numSpaces)
+void spacesMenu(SpaceManager *manager)
 {
     int choice;
 
@@ -57,11 +58,11 @@ void spacesMenu(Space **spaces, int *numSpaces)
         switch (choice)
         {
         case 1:
-            viewAllSpaces(*spaces, *numSpaces);
+            viewAllSpaces(manager);
             pressAnyKeyToGoBack();
             break;
         case 2:
-            // addNewSpace(spaces, numSpaces);
+            // addNewSpace(manager);
             break;
         case 5:
             puts("Exiting Spaces Management Menu...\n");
