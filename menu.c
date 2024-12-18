@@ -8,7 +8,7 @@ void manageReservations() {}
 void manageEquipments() {}
 void generateReports() {}
 
-void smsMenu()
+void smsMenu(Space **spaces, int *numSpaces)
 {
     int choice;
     do
@@ -27,7 +27,6 @@ void smsMenu()
 
         if (scanf("%d", &choice) != 1)
         {
-
             puts("\nInvalid input, Please enter a number between 1 and 6\n");
             while (getchar() != '\n')
                 ;
@@ -36,7 +35,7 @@ void smsMenu()
         switch (choice)
         {
         case 1:
-            spacesMenu();
+            spacesMenu(spaces, numSpaces);
             break;
         case 2:
             manageClients();

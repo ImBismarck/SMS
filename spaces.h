@@ -12,10 +12,7 @@ typedef struct
     int capacity;
 } Space;
 
-extern Space *spaces; // Pointer for dynamically allocated spaces
-extern int numSpaces;
-
 void viewAllSpaces(Space *spaces, int numSpaces);
-void spacesMenu();
+void spacesMenu(Space **spaces, int *numSpaces);
 
 #endif

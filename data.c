@@ -2,14 +2,13 @@
 #include <string.h>
 #include <stdlib.h>
 #include "spaces.h"
-
-Space *spaces = NULL; // Dynamically allocated array
-int numSpaces = 0;
+#include "data.h"
 
 int loadFile(Space **spaces)
 {
     char line[256];
     FILE *file = fopen("spaces.csv", "r");
+    int numSpaces = 0;
     int index = 0;
 
     if (file == NULL)
@@ -24,6 +23,12 @@ int loadFile(Space **spaces)
         numSpaces++;
     }
     rewind(file);
+
+    // Free existing memory if any
+    if (*spaces != NULL)
+    {
+        free(*spaces);
+    }
 
     // Allocate memory dynamically
     *spaces = (Space *)malloc(numSpaces * sizeof(Space));
@@ -55,5 +60,5 @@ int loadFile(Space **spaces)
     fclose(file);
 
     printf("Loaded %d spaces from file.\n", numSpaces);
-    return 0;
+    return numSpaces;
 }

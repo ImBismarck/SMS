@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "spaces.h"
-#include "data.h"
 
 void pressAnyKeyToGoBack()
 {
@@ -32,7 +31,7 @@ void viewAllSpaces(Space *spaces, int numSpaces)
     }
 }
 
-void spacesMenu()
+void spacesMenu(Space **spaces, int *numSpaces)
 {
     int choice;
 
@@ -58,19 +57,12 @@ void spacesMenu()
         switch (choice)
         {
         case 1:
-            // Use global variables directly
-            viewAllSpaces(spaces, numSpaces);
+            viewAllSpaces(*spaces, *numSpaces);
             pressAnyKeyToGoBack();
             break;
         case 2:
-            // addNewSpace(spaces, &numSpaces);
+            // addNewSpace(spaces, numSpaces);
             break;
-        // case 3:
-        //     updateExistingSpace();
-        //     break;
-        // case 4:
-        //     deleteSpace();
-        //     break;
         case 5:
             puts("Exiting Spaces Management Menu...\n");
             return;

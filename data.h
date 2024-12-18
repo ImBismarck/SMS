@@ -3,9 +3,6 @@
 
 #include "spaces.h"
 
-extern Space *spaces; // Pointer for dynamically allocated spaces
-extern int numSpaces;
-
-int loadFile(Space **spaces); // Adjust to use a pointer to the pointer
+int loadFile(Space **spaces); // Returns number of spaces loaded
 
 #endif

@@ -1,6 +1,8 @@
 #ifndef MENU_H
 #define MENU_H
 
-void smsMenu();
+#include "spaces.h"
+
+void smsMenu(Space **spaces, int *numSpaces);
 
 #endif

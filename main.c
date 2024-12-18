@@ -7,6 +7,8 @@
 int main()
 {
     int choice;
+    Space *spaces = NULL;
+    int numSpaces = 0;
 
     do
     {
@@ -30,17 +32,20 @@ int main()
         switch (choice)
         {
         case 1:
-            smsMenu();
+            smsMenu(&spaces, &numSpaces);
             break;
         case 2:
-            if (loadFile(&spaces) == 0)
+        {
+            int loaded = loadFile(&spaces);
+            if (loaded >= 0)
             {
+                numSpaces = loaded;
                 puts("File loaded successfully.");
             }
             break;
+        }
         case 4:
             puts("Exiting....");
-            // Free dynamically allocated memory
             free(spaces);
             return 0;
         default:
