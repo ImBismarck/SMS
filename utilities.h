@@ -19,5 +19,6 @@ typedef struct
 } SpaceManager;
 
 void pressAnyKeyToGoBack();
+void clearConsole();
 
 #endif

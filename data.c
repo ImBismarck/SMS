@@ -18,7 +18,7 @@ int loadFile(SpaceManager *manager)
         return -1;
     }
 
-    // Count the number of lines (spaces)
+    // Count the number of spaces
     while (fgets(line, sizeof(line), file))
     {
         countSpaces++;
@@ -48,6 +48,6 @@ int loadFile(SpaceManager *manager)
     fclose(file);
 
     manager->numSpaces = countSpaces;
-    printf("Loaded %d spaces from file.\n", manager->numSpaces);
+    printf("Loaded %d spaces from file\n", manager->numSpaces);
     return countSpaces;
 }

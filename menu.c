@@ -15,19 +15,20 @@ void smsMenu(SpaceManager *manager)
     {
         puts("----------------------------------------");
         puts("\n       Space Management System Menu       \n");
-        puts("------------------------------------------\n");
-        puts("1. Manage Spaces\n");
-        puts("2. Manage Clients\n");
-        puts("3. Manage Reservations\n");
-        puts("4. Manage Equipment\n");
-        puts("5. Generate Reports\n");
+        puts("----------------------------------------\n");
+        puts("1. Manage Spaces");
+        puts("2. Manage Clients");
+        puts("3. Manage Reservations");
+        puts("4. Manage Equipment");
+        puts("5. Generate Reports");
         puts("6. Exit\n");
         puts("----------------------------------------");
         puts("Please select an option (1-6): ");
 
         if (scanf("%d", &choice) != 1)
         {
-            puts("\nInvalid input, Please enter a number between 1 and 6\n");
+            clearConsole();
+            puts("Invalid input, Please enter a number between 1 and 6\n");
             while (getchar() != '\n')
                 ;
             continue;
@@ -35,6 +36,7 @@ void smsMenu(SpaceManager *manager)
         switch (choice)
         {
         case 1:
+            clearConsole();
             spacesMenu(manager);
             break;
         case 2:
@@ -50,9 +52,11 @@ void smsMenu(SpaceManager *manager)
             generateReports();
             break;
         case 6:
+            clearConsole();
             puts("Exiting....");
             return;
         default:
+            clearConsole();
             puts("Invalid choice. Please try again.\n");
             break;
         }
