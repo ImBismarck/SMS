@@ -9,6 +9,6 @@ void clearInputBuffer();
 //inputs
 int getInt(int minValue, int maxValue, const char *msg);
 void readString(char *string, unsigned int size, const char *msg);
-
+void capitalizeWords(char *str);
 #endif /* INPUT_H */
 

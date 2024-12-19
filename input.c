@@ -12,6 +12,16 @@ void clearInputBuffer() {
     ;
 }
 
+void capitalizeWords(char *str) {
+  str[0] = toupper(str[0]); // capitalize first letter
+
+  for (int i = 1; str[i] != '\0'; i++) {
+    if (str[i - 1] == ' ') {    // if previous char was space
+      str[i] = toupper(str[i]); // then capitalize this letter
+    }
+  }
+}
+
 // get integer input within a specific range
 int getInt(int minValue, int maxValue, const char *msg) {
   int value;

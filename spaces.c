@@ -49,14 +49,16 @@ void viewAllSpaces(SpaceManager *manager) {
 
     puts("----------------------------------------"
          "\n          Available Spaces          \n"
-         "----------------------------------------\n"
-         "ID  Name               Type              Capacity");
+         "----------------------------------------\n");
 
     for (int i = 0; i < manager->numSpaces; i++) {
-      printf("%-3d %-18s %-17s %d\n", manager->spaces[i].id,
-             manager->spaces[i].name, manager->spaces[i].type,
-             manager->spaces[i].capacity);
+      printf("ID      : %d\n", manager->spaces[i].id);
+      printf("Name    : %s\n", manager->spaces[i].name);
+      printf("Type    : %s\n", manager->spaces[i].type);
+      printf("Capacity: %d\n", manager->spaces[i].capacity);
+      puts("----------------------------------------\n");
     }
+    puts("End of spaces list\n");
   }
 }
 
@@ -78,13 +80,14 @@ void addNewSpace(SpaceManager *manager) {
     newId = manager->numSpaces;
   }
 
-  puts("----------------------------------------");
-  puts("\n             Add New Space            \n");
-  puts("----------------------------------------\n");
+  puts("----------------------------------------"
+       "\n             Add New Space            \n"
+       "----------------------------------------\n");
 
   inputSpaceName(newName, MAX_NAME_LENGTH, "Enter space name: ");
   inputSpaceType(newType, MAX_TYPE_LENGTH, "Enter space type: ");
   newCapacity = inputSpaceCapacity("Enter space capacity: ", 1, 10000);
+
   // Create new space
   Space newSpace;
   newSpace.id = newId;
@@ -99,7 +102,10 @@ void addNewSpace(SpaceManager *manager) {
   manager->numSpaces++;
   manager->unsavedSpaces++;
 
+  clearConsole();
   puts("\nSpace added successfully!");
-  printf("ID: %d, Name: %s, Type: %s, Capacity: %d\n", newSpace.id,
-         newSpace.name, newSpace.type, newSpace.capacity);
+  printf("ID      : %d\n", newSpace.id);
+  printf("Name    : %s\n", newSpace.name);
+  printf("Type    : %s\n", newSpace.type);
+  printf("Capacity: %d\n", newSpace.capacity);
 }

@@ -29,9 +29,7 @@ int main() {
       break;
     case 2:
       clearConsole();
-      if (loadFile(&manager) >= 0) {
-        puts("File loaded successfully.");
-      }
+      loadFile(&manager);
       break;
     case 3:
       clearConsole();
