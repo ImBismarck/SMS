@@ -35,7 +35,7 @@ void spacesMenu(SpaceManager *manager) {
     puts("4. Delete Space");
     puts("5. Back to Main Menu");
     puts("----------------------------------------\n");
-    puts("Please select an option 1-5: ");
+    puts("Please select an option 1-5:");
 
     if (scanf("%d", &choice) != 1) {
       clearConsole();
