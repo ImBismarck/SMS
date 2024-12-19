@@ -1,18 +1,27 @@
 #include "utilities.h"
+#include "input.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-void pressAnyKeyToGoBack() {
-  puts("\nEnter any key to go back...");
-  getchar(); // clear input buffer
-  getchar(); // wait for user input
-  clearConsole();
+void inputSpaceName(char *name, int maxLength, const char *msg) {
+  do {
+    readString(name, maxLength, msg);
+    if (strlen(name) == 0) {
+      puts("Name cannot be empty. Please try again.");
+    }
+  } while (strlen(name) == 0);
 }
 
-void clearConsole() { system("cls"); }
+void inputSpaceType(char *type, int maxLength, const char *msg) {
+  do {
+    readString(type, maxLength, msg);
+    if (strlen(type) == 0) {
+      puts("Type cannot be empty. Please try again.");
+    }
+  } while (strlen(type) == 0);
+}
 
-void clearBuffer() {
-  while (getchar() != '\n')
-    ;
+int inputSpaceCapacity(const char *msg, int min, int max) {
+  return getInt(min, max, msg);
 }

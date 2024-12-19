@@ -3,8 +3,8 @@
 
 #include "utilities.h"
 
-void viewAllSpaces(SpaceManager *manager);
 void spacesMenu(SpaceManager *manager);
+void viewAllSpaces(SpaceManager *manager);
 void addNewSpace(SpaceManager *manager);
 
 #endif

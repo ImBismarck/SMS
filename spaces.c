@@ -25,7 +25,6 @@ void spacesMenu(SpaceManager *manager) {
     case 1:
       clearConsole();
       viewAllSpaces(manager);
-      pressAnyKeyToGoBack();
       break;
     case 2:
       clearConsole();
@@ -48,13 +47,13 @@ void viewAllSpaces(SpaceManager *manager) {
     puts("No spaces loaded, please load file first.");
   } else {
 
-    puts("----------------------------------------");
-    puts("\n          Available Spaces          \n");
-    puts("----------------------------------------\n");
-    printf("ID  Name                Type           Capacity\n");
+    puts("----------------------------------------"
+         "\n          Available Spaces          \n"
+         "----------------------------------------\n"
+         "ID  Name               Type              Capacity");
 
     for (int i = 0; i < manager->numSpaces; i++) {
-      printf("%-3d %-18s %-15s %-10d\n", manager->spaces[i].id,
+      printf("%-3d %-18s %-17s %d\n", manager->spaces[i].id,
              manager->spaces[i].name, manager->spaces[i].type,
              manager->spaces[i].capacity);
     }
@@ -83,43 +82,9 @@ void addNewSpace(SpaceManager *manager) {
   puts("\n             Add New Space            \n");
   puts("----------------------------------------\n");
 
-  // Input for name
-  printf("Enter space name: ");
-  while (getchar() != '\n')
-    ; // Clear input buffer
-  fgets(newName, MAX_NAME_LENGTH, stdin);
-  newName[strcspn(newName, "\n")] = '\0';
-
-  if (newName[0] == '\0') {
-    puts("Name cannot be empty.");
-    return;
-  }
-  for (int i = 0; manager->spaces[i].name != "/0"; i++) {
-    if (newName[0] == ' ') {
-      puts("Name cannot be empty.");
-      return;
-    }
-  }
-
-  // Input for type
-  printf("Enter space type (e.g., Auditorium, Meeting Room): ");
-  fgets(newType, MAX_TYPE_LENGTH, stdin);
-  newType[strcspn(newType, "\n")] = '\0';
-
-  if (newType[0] == '\0') {
-    puts("Error: Type cannot be empty.");
-    return;
-  }
-
-  // Input for capacity
-  printf("Enter space capacity: ");
-  if (scanf("%d", &newCapacity) != 1 || newCapacity <= 0) {
-    puts("Error: Capacity must be a positive integer.");
-    while (getchar() != '\n')
-      ; // Clear input buffer
-    return;
-  }
-
+  inputSpaceName(newName, MAX_NAME_LENGTH, "Enter space name: ");
+  inputSpaceType(newType, MAX_TYPE_LENGTH, "Enter space type: ");
+  newCapacity = inputSpaceCapacity("Enter space capacity: ", 1, 10000);
   // Create new space
   Space newSpace;
   newSpace.id = newId;
@@ -132,7 +97,7 @@ void addNewSpace(SpaceManager *manager) {
   // Add to manager's array
   manager->spaces[manager->numSpaces] = newSpace;
   manager->numSpaces++;
-  manager->unsavedSpaces++; // Increment unsaved counter
+  manager->unsavedSpaces++;
 
   puts("\nSpace added successfully!");
   printf("ID: %d, Name: %s, Type: %s, Capacity: %d\n", newSpace.id,

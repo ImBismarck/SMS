@@ -3,8 +3,12 @@
 
 #define INVALID_VALUE "The value entered is invalid"
 
-int getInt(int minValue, int maxValue, char *msg);
-void readString(char *string, unsigned int size, char *msg);
+void clearConsole();
+void clearInputBuffer();
+
+//inputs
+int getInt(int minValue, int maxValue, const char *msg);
+void readString(char *string, unsigned int size, const char *msg);
 
 #endif /* INPUT_H */
 

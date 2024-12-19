@@ -1,4 +1,5 @@
 #include "menu.h"
+#include "input.h"
 #include "spaces.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -11,25 +12,18 @@ void generateReports() {}
 void smsMenu(SpaceManager *manager) {
   int choice;
   do {
-    puts("----------------------------------------");
-    puts("\n       Space Management System Menu       \n");
-    puts("----------------------------------------\n");
-    puts("1. Manage Spaces");
-    puts("2. Manage Clients");
-    puts("3. Manage Reservations");
-    puts("4. Manage Equipment");
-    puts("5. Generate Reports");
-    puts("6. Back\n");
-    puts("----------------------------------------");
-    puts("Please select an option (1-6): ");
+    choice = getInt(1, 5,
+                    "----------------------------------------"
+                    "\n       Space Management System Menu       \n"
+                    "----------------------------------------\n"
+                    "1. Manage Spaces \n"
+                    "2. Manage Clients \n"
+                    "3. Manage Reservations \n"
+                    "4. Manage Equipment \n"
+                    "5. Generate Reports \n"
+                    "6. Back\n"
+                    "Please select an option 1-6: \n");
 
-    if (scanf("%d", &choice) != 1) {
-      clearConsole();
-      puts("Invalid input, Please enter a number between 1 and 6\n");
-      while (getchar() != '\n')
-        ;
-      continue;
-    }
     switch (choice) {
     case 1:
       clearConsole();

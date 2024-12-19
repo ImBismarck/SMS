@@ -16,8 +16,10 @@ typedef struct {
   int numSpaces;
   int unsavedSpaces;
 } SpaceManager;
+// move those
 
-void pressAnyKeyToGoBack();
-void clearConsole();
+int inputSpaceCapacity(const char *msg, int min, int max);
+void inputSpaceName(char *name, int maxLength, const char *msg);
+void inputSpaceType(char *type, int maxLength, const char *msg);
 
 #endif

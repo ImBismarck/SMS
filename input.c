@@ -4,6 +4,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+void clearConsole() { system("cls"); }
+
 void clearInputBuffer() {
   int c;
   while ((c = getchar()) != '\n' && c != EOF)
@@ -11,7 +13,7 @@ void clearInputBuffer() {
 }
 
 // get integer input within a specific range
-int getInt(int minValue, int maxValue, char *msg) {
+int getInt(int minValue, int maxValue, const char *msg) {
   int value;
   printf("%s", msg);
   while (scanf("%d", &value) != 1 || value < minValue || value > maxValue) {
@@ -24,7 +26,7 @@ int getInt(int minValue, int maxValue, char *msg) {
 }
 
 // get string
-void readString(char *string, unsigned int size, char *msg) {
+void readString(char *string, unsigned int size, const char *msg) {
   printf("%s", msg);
   if (fgets(string, size, stdin) != NULL) {
     unsigned int last = strlen(string) - 1;
