@@ -1,5 +1,6 @@
 #include "spaces.h"
 #include "data.h"
+#include "input.h"
 #include "utilities.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -9,24 +10,17 @@ void spacesMenu(SpaceManager *manager) {
   int choice;
 
   do {
-    puts("----------------------------------------");
-    puts("\n          Space Management          \n");
-    puts("----------------------------------------\n");
-    puts("1. View All Spaces");
-    puts("2. Add New Space");
-    puts("3. Update Existing Space");
-    puts("4. Delete Space");
-    puts("5. Back to Main Menu");
-    puts("----------------------------------------\n");
-    puts("Please select an option 1-5: ");
+    choice = getInt(1, 5,
+                    "----------------------------------------"
+                    "\n          Space Management          \n"
+                    "----------------------------------------\n"
+                    "1. View All Spaces \n"
+                    "2. Add New Space \n"
+                    "3. Update Existing Space \n"
+                    "4. Delete Space \n"
+                    "5. Back to Main Menu \n"
+                    "Please select an option 1-5: \n");
 
-    if (scanf("%d", &choice) != 1) {
-      clearConsole();
-      puts("Invalid input, Please enter a number between 1 and 5\n");
-      while (getchar() != '\n')
-        ;
-      continue;
-    }
     switch (choice) {
     case 1:
       clearConsole();
@@ -76,21 +70,13 @@ void addNewSpace(SpaceManager *manager) {
   // If memory is empty, allocate space for the first element
   if (manager->spaces == NULL) {
     manager->spaces = malloc(sizeof(Space));
-    if (manager->spaces == NULL) {
-      puts("Memory allocation failed.");
-      return;
-    }
-    newId = 0; // Start with ID 0 when memory is empty
+    newId = 1; // Start with ID 0 when memory is empty
   } else {
-    // Reallocate memory for additional space
     Space *temp =
         realloc(manager->spaces, (manager->numSpaces + 1) * sizeof(Space));
-    if (temp == NULL) {
-      puts("Memory reallocation failed.");
-      return;
-    }
+
     manager->spaces = temp;
-    newId = manager->numSpaces; // Use current count as new ID
+    newId = manager->numSpaces;
   }
 
   puts("----------------------------------------");
@@ -105,8 +91,14 @@ void addNewSpace(SpaceManager *manager) {
   newName[strcspn(newName, "\n")] = '\0';
 
   if (newName[0] == '\0') {
-    puts("Error: Name cannot be empty.");
+    puts("Name cannot be empty.");
     return;
+  }
+  for (int i = 0; manager->spaces[i].name != "/0"; i++) {
+    if (newName[0] == ' ') {
+      puts("Name cannot be empty.");
+      return;
+    }
   }
 
   // Input for type

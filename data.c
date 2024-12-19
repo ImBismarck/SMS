@@ -58,11 +58,6 @@ int loadFile(SpaceManager *manager) {
 
   // Allocate memory for spaces
   manager->spaces = malloc(countSpaces * sizeof(Space));
-  if (manager->spaces == NULL) {
-    fclose(file);
-    puts("Memory allocation failed.");
-    return -1;
-  }
 
   // Reset file pointer to beginning
   rewind(file);
@@ -90,6 +85,6 @@ int loadFile(SpaceManager *manager) {
   manager->numSpaces = countSpaces;
   manager->unsavedSpaces = 0; // Reset unsaved counter when loading
   fclose(file);
-  printf("Loaded %d spaces from file\n", manager->numSpaces);
+  puts("Loaded spaces from file\n");
   return countSpaces;
 }
