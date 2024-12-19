@@ -4,5 +4,6 @@
 #include "spaces.h"
 
 int loadFile(SpaceManager *manager);
+int saveFile(SpaceManager *manager);
 
 #endif

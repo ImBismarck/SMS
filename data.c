@@ -1,15 +1,45 @@
 #include "data.h"
-#include "spaces.h"
 #include "utilities.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
+int saveFile(SpaceManager *manager) {
+  if (manager->unsavedSpaces == 0) {
+    puts("No new spaces to save.");
+    return 0;
+  }
+
+  FILE *file = fopen("spaces.csv", "w");
+  if (file == NULL) {
+    printf("Could not open file spaces.csv for writing.\n");
+    return -1;
+  }
+
+  for (int i = 0; i < manager->numSpaces; i++) {
+    fprintf(file, "%d,%s,%s,%d\n", manager->spaces[i].id,
+            manager->spaces[i].name, manager->spaces[i].type,
+            manager->spaces[i].capacity);
+  }
+
+  fclose(file);
+  printf("Successfully saved %d new spaces to file.\n", manager->unsavedSpaces);
+  manager->unsavedSpaces = 0; // Reset unsaved counter after saving
+  return 0;
+}
+
+// In data.c
 int loadFile(SpaceManager *manager) {
+  // Free existing memory if any
+  if (manager->spaces != NULL) {
+    free(manager->spaces);
+    manager->spaces = NULL;
+    manager->numSpaces = 0;
+  }
+
   char line[256];
   FILE *file = fopen("spaces.csv", "r");
   int countSpaces = 0;
-  int index = 0;
 
   if (file == NULL) {
     printf("Could not open file spaces.csv\n");
@@ -20,30 +50,46 @@ int loadFile(SpaceManager *manager) {
   while (fgets(line, sizeof(line), file)) {
     countSpaces++;
   }
-  rewind(file); // reads file from the beginning
 
-  // Allocate memory to ensure the correct size for Space structures
-  manager->spaces = malloc(countSpaces * sizeof(*manager->spaces));
+  if (countSpaces == 0) {
+    fclose(file);
+    return 0;
+  }
 
+  // Allocate memory for spaces
+  manager->spaces = malloc(countSpaces * sizeof(Space));
+  if (manager->spaces == NULL) {
+    fclose(file);
+    puts("Memory allocation failed.");
+    return -1;
+  }
+
+  // Reset file pointer to beginning
+  rewind(file);
+  int index = 0;
+
+  // Read spaces from file
   while (fgets(line, sizeof(line), file)) {
-    char *cell;
-    cell = strtok(line, ",");
+    char *cell = strtok(line, ",");
     manager->spaces[index].id = atoi(cell);
 
     cell = strtok(NULL, ",");
     strncpy(manager->spaces[index].name, cell, MAX_NAME_LENGTH - 1);
+    manager->spaces[index].name[MAX_NAME_LENGTH - 1] = '\0';
 
     cell = strtok(NULL, ",");
     strncpy(manager->spaces[index].type, cell, MAX_TYPE_LENGTH - 1);
+    manager->spaces[index].type[MAX_TYPE_LENGTH - 1] = '\0';
 
     cell = strtok(NULL, ",");
     manager->spaces[index].capacity = atoi(cell);
 
     index++;
   }
-  fclose(file);
 
   manager->numSpaces = countSpaces;
+  manager->unsavedSpaces = 0; // Reset unsaved counter when loading
+  fclose(file);
   printf("Loaded %d spaces from file\n", manager->numSpaces);
   return countSpaces;
 }

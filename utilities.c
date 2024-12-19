@@ -11,3 +11,8 @@ void pressAnyKeyToGoBack() {
 }
 
 void clearConsole() { system("cls"); }
+
+void clearBuffer() {
+  while (getchar() != '\n')
+    ;
+}

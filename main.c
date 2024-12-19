@@ -1,13 +1,12 @@
 #include "data.h"
 #include "menu.h"
-#include "spaces.h"
 #include "utilities.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 int main() {
   int choice;
-  SpaceManager manager = {NULL, 0};
+  SpaceManager manager = {NULL, 0, 0};
 
   clearConsole();
 
@@ -39,6 +38,10 @@ int main() {
       if (loadFile(&manager) >= 0) {
         puts("File loaded successfully.");
       }
+      break;
+    case 3:
+      clearConsole();
+      saveFile(&manager);
       break;
     case 4:
       clearConsole();

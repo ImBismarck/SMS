@@ -14,6 +14,7 @@ typedef struct {
 typedef struct {
   Space *spaces;
   int numSpaces;
+  int unsavedSpaces;
 } SpaceManager;
 
 void pressAnyKeyToGoBack();
