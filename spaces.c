@@ -37,6 +37,7 @@ void spacesMenu(SpaceManager *manager) {
     puts("----------------------------------------\n");
     puts("Please select an option 1-5:");
 
+
     if (scanf("%d", &choice) != 1) {
       clearConsole();
       puts("Invalid input, Please enter a number between 1 and 5\n");
