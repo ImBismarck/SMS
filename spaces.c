@@ -30,6 +30,10 @@ void spacesMenu(SpaceManager *manager) {
       clearConsole();
       addNewSpace(manager);
       break;
+    case 4:
+      clearConsole();
+      deleteSpace(manager);
+      break;
     case 5:
       clearConsole();
       puts("Exiting Spaces Management Menu...\n");
@@ -45,38 +49,45 @@ void spacesMenu(SpaceManager *manager) {
 void viewAllSpaces(SpaceManager *manager) {
   if (!manager->fileLoaded) {
     puts("No spaces loaded, please load file first.");
-  } else {
-
-    puts("----------------------------------------"
-         "\n          Available Spaces          \n"
-         "----------------------------------------\n");
-
-    for (int i = 0; i < manager->numSpaces; i++) {
-      printf("ID      : %d\n", manager->spaces[i].id);
-      printf("Name    : %s\n", manager->spaces[i].name);
-      printf("Type    : %s\n", manager->spaces[i].type);
-      printf("Capacity: %d\n", manager->spaces[i].capacity);
-      puts("----------------------------------------\n");
-    }
-    puts("End of spaces list\n");
+    return;
   }
+
+  puts("----------------------------------------"
+       "\n          Available Spaces          \n"
+       "----------------------------------------\n");
+
+  for (int i = 0; i < manager->numSpaces; i++) {
+    printf("ID      : %d\n", manager->spaces[i].id);
+    printf("Name    : %s\n", manager->spaces[i].name);
+    printf("Type    : %s\n", manager->spaces[i].type);
+    printf("Capacity: %d\n", manager->spaces[i].capacity);
+    puts("----------------------------------------\n");
+  }
+  puts("End of spaces list\n");
 }
 
 void addNewSpace(SpaceManager *manager) {
+  if (!manager->fileLoaded) {
+    puts("No spaces loaded, please load file first to create a new space");
+    return;
+  }
+
   int newId;
   char newName[MAX_NAME_LENGTH];
   char newType[MAX_TYPE_LENGTH];
   int newCapacity;
+  Space *temp = NULL;
 
   // If memory is empty, allocate space for the first element
   if (manager->spaces == NULL) {
-    manager->spaces = malloc(sizeof(Space));
-    newId = 1; // Start with ID 0 when memory is empty
+    temp = malloc(sizeof(Space));
+    manager->spaces = temp;
+    newId = 1;
   } else {
     Space *temp =
         realloc(manager->spaces, (manager->numSpaces + 1) * sizeof(Space));
-
     manager->spaces = temp;
+
     newId = manager->numSpaces + 1;
   }
 
@@ -108,4 +119,56 @@ void addNewSpace(SpaceManager *manager) {
   printf("Name    : %s\n", newSpace.name);
   printf("Type    : %s\n", newSpace.type);
   printf("Capacity: %d\n", newSpace.capacity);
+}
+
+void deleteSpace(SpaceManager *manager) {
+  int deleteId;
+  int foundSpaceId = -1;
+
+  if (!manager->fileLoaded || manager->numSpaces == 0 ||
+      manager->spaces == NULL) {
+    puts("No spaces available to delete");
+    return;
+  }
+
+  puts("----------------------------------------"
+       "\n            Delete Space             \n"
+       "----------------------------------------\n");
+
+  deleteId =
+      getInt(1, manager->numSpaces, "Enter the ID of the space to delete: ");
+
+  // finding the id
+  for (int i = 0; i < manager->numSpaces; i++) {
+    if (manager->spaces[i].id == deleteId) {
+      foundSpaceId = i;
+      break;
+    }
+  }
+
+  if (foundSpaceId == -1) {
+    puts("Space with that ID was not found");
+    return;
+  }
+
+  // Shift spaces and change ID numbers to make them in order
+  for (int i = foundSpaceId; i < manager->numSpaces - 1; i++) {
+    manager->spaces[i] = manager->spaces[i + 1];
+    manager->spaces[i].id = i + 1;
+  }
+
+  manager->numSpaces--;
+  manager->unsavedSpaces++;
+
+  if (manager->numSpaces == 0) {
+    // if no spaces left
+    free(manager->spaces);
+    manager->spaces = NULL;
+  } else {
+    Space *temp = realloc(manager->spaces, manager->numSpaces * sizeof(Space));
+    manager->spaces = temp;
+  }
+
+  clearConsole();
+  puts("Space deleted successfully");
 }

@@ -28,7 +28,7 @@ int saveFile(SpaceManager *manager) {
   }
 
   fclose(file);
-  printf("Successfully saved %d new spaces to file\n", manager->unsavedSpaces);
+  puts("Successfully changes to file\n");
   manager->unsavedSpaces = 0; // Reset unsaved counter after saving
   return 0;
 }
@@ -56,13 +56,14 @@ int loadFile(SpaceManager *manager) {
     countSpaces++;
   }
 
-  if (countSpaces == 0) {
-    fclose(file);
-    return 0;
-  }
+  manager->numSpaces = countSpaces;
+  manager->unsavedSpaces = 0;
+  manager->fileLoaded = 1;
 
   // Allocate memory for spaces
-  manager->spaces = malloc(countSpaces * sizeof(Space));
+  if (countSpaces > 0) {
+    manager->spaces = malloc(countSpaces * sizeof(Space));
+  }
 
   // Reset file pointer to beginning
   rewind(file);
@@ -87,9 +88,9 @@ int loadFile(SpaceManager *manager) {
     index++;
   }
 
-  manager->numSpaces = countSpaces;
-  manager->unsavedSpaces = 0; // Reset unsaved counter when loading
-  manager->fileLoaded = 1;
+  // manager->numSpaces = countSpaces;
+  // manager->unsavedSpaces = 0; // Reset unsaved counter when loading
+  // manager->fileLoaded = 1;
   fclose(file);
   puts("Loaded spaces from file");
   return countSpaces;
