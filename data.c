@@ -15,16 +15,19 @@ int saveFile(SpaceManager *manager) {
     return 0;
   }
 
-  FILE *file = fopen("spaces.csv", "w");
+  FILE *file = fopen("spaces.bin", "wb");
   if (file == NULL) {
-    printf("Could not open file spaces.csv for writing.\n");
+    printf("Could not open file spaces.bin for writing.\n");
     return -1;
   }
 
+  fwrite(&manager->numSpaces, sizeof(int), 1, file);
+
   for (int i = 0; i < manager->numSpaces; i++) {
-    fprintf(file, "%d,%s,%s,%d\n", manager->spaces[i].id,
-            manager->spaces[i].name, manager->spaces[i].type,
-            manager->spaces[i].capacity);
+    fwrite(&manager->spaces[i].id, sizeof(int), 1, file);
+    fwrite(manager->spaces[i].name, sizeof(char), MAX_NAME_LENGTH, file);
+    fwrite(manager->spaces[i].type, sizeof(char), MAX_TYPE_LENGTH, file);
+    fwrite(&manager->spaces[i].capacity, sizeof(int), 1, file);
   }
 
   fclose(file);
@@ -43,55 +46,33 @@ int loadFile(SpaceManager *manager) {
   }
 
   char line[256];
-  FILE *file = fopen("spaces.csv", "r");
   int countSpaces = 0;
 
+  FILE *file = fopen("spaces.bin", "rb");
   if (file == NULL) {
-    printf("Could not open file spaces.csv\n");
+    printf("Could not open file spaces.bin\n");
     return -1;
   }
 
-  // Count the number of spaces
-  while (fgets(line, sizeof(line), file)) {
-    countSpaces++;
-  }
+  // Read the number of spaces
+  fread(&manager->numSpaces, sizeof(int), 1, file);
+  manager->spaces = malloc(manager->numSpaces * sizeof(Space));
 
-  // manager->numSpaces = countSpaces;
-  // manager->unsavedSpaces = 0;
-  // manager->fileLoaded = 1;
+  // Read spaces data
+  for (int index = 0; index < manager->numSpaces; index++) {
+    fread(&manager->spaces[index].id, sizeof(int), 1, file);
+    fread(manager->spaces[index].name, sizeof(char), MAX_NAME_LENGTH, file);
+    manager->spaces[index].name[MAX_NAME_LENGTH - 1] =
+        '\0'; // mark the end of the string
 
-  // Allocate memory for spaces
-  if (countSpaces > 0) {
-    manager->spaces = malloc(countSpaces * sizeof(Space));
-  }
-
-  // Reset file pointer to beginning
-  rewind(file);
-  int index = 0;
-
-  // Read spaces from file
-  while (fgets(line, sizeof(line), file)) {
-    char *cell = strtok(line, ",");
-    manager->spaces[index].id = atoi(cell);
-
-    cell = strtok(NULL, ",");
-    strncpy(manager->spaces[index].name, cell, MAX_NAME_LENGTH - 1);
-    manager->spaces[index].name[MAX_NAME_LENGTH - 1] = '\0';
-
-    cell = strtok(NULL, ",");
-    strncpy(manager->spaces[index].type, cell, MAX_TYPE_LENGTH - 1);
+    fread(manager->spaces[index].type, sizeof(char), MAX_TYPE_LENGTH, file);
     manager->spaces[index].type[MAX_TYPE_LENGTH - 1] = '\0';
 
-    cell = strtok(NULL, ",");
-    manager->spaces[index].capacity = atoi(cell);
-
-    index++;
+    fread(&manager->spaces[index].capacity, sizeof(int), 1, file);
   }
 
-  manager->numSpaces = countSpaces;
-  manager->unsavedSpaces = 0; // Reset unsaved counter when loading
   manager->fileLoaded = 1;
   fclose(file);
   puts("Loaded spaces from file");
-  return countSpaces;
+  return manager->numSpaces;
 }
