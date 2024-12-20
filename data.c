@@ -5,6 +5,11 @@
 #include <string.h>
 
 int saveFile(SpaceManager *manager) {
+  if (!manager->fileLoaded) {
+    puts("No file has been loaded, please load a file first");
+    return -1;
+  }
+
   if (manager->unsavedSpaces == 0) {
     puts("No new spaces to save.");
     return 0;
@@ -23,7 +28,7 @@ int saveFile(SpaceManager *manager) {
   }
 
   fclose(file);
-  printf("Successfully saved %d new spaces to file.\n", manager->unsavedSpaces);
+  printf("Successfully saved %d new spaces to file\n", manager->unsavedSpaces);
   manager->unsavedSpaces = 0; // Reset unsaved counter after saving
   return 0;
 }
@@ -84,7 +89,8 @@ int loadFile(SpaceManager *manager) {
 
   manager->numSpaces = countSpaces;
   manager->unsavedSpaces = 0; // Reset unsaved counter when loading
+  manager->fileLoaded = 1;
   fclose(file);
-  puts("Loaded spaces from file\n");
+  puts("Loaded spaces from file");
   return countSpaces;
 }

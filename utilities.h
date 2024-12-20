@@ -15,6 +15,7 @@ typedef struct {
   Space *spaces;
   int numSpaces;
   int unsavedSpaces;
+  int fileLoaded;
 } SpaceManager;
 // move those
 

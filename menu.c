@@ -12,7 +12,7 @@ void generateReports() {}
 void smsMenu(SpaceManager *manager) {
   int choice;
   do {
-    choice = getInt(1, 5,
+    choice = getInt(1, 6,
                     "----------------------------------------"
                     "\n       Space Management System Menu       \n"
                     "----------------------------------------\n"

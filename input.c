@@ -47,3 +47,11 @@ void readString(char *string, unsigned int size, const char *msg) {
     }
   }
 }
+
+char getChar(const char *msg) {
+  char value;
+  printf("%s", msg);
+  value = getchar();
+  clearInputBuffer();
+  return value;
+}

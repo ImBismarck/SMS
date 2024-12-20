@@ -43,7 +43,7 @@ void spacesMenu(SpaceManager *manager) {
 }
 
 void viewAllSpaces(SpaceManager *manager) {
-  if (manager->numSpaces == 0) {
+  if (!manager->fileLoaded) {
     puts("No spaces loaded, please load file first.");
   } else {
 
@@ -77,7 +77,7 @@ void addNewSpace(SpaceManager *manager) {
         realloc(manager->spaces, (manager->numSpaces + 1) * sizeof(Space));
 
     manager->spaces = temp;
-    newId = manager->numSpaces;
+    newId = manager->numSpaces + 1;
   }
 
   puts("----------------------------------------"

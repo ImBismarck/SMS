@@ -5,10 +5,11 @@
 
 void clearConsole();
 void clearInputBuffer();
+void capitalizeWords(char *str);
 
 //inputs
 int getInt(int minValue, int maxValue, const char *msg);
 void readString(char *string, unsigned int size, const char *msg);
-void capitalizeWords(char *str);
+char getChar(const char *msg);
 #endif /* INPUT_H */
 

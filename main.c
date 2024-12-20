@@ -7,7 +7,7 @@
 
 int main() {
   int choice;
-  SpaceManager manager = {NULL, 0, 0};
+  SpaceManager manager = {NULL, 0, 0, 0};
 
   clearConsole();
 
