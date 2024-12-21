@@ -6,46 +6,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-void spacesMenu(SpaceManager *manager) {
-  int choice;
-
-  do {
-    choice = getInt(1, 5,
-                    "----------------------------------------"
-                    "\n          Space Management          \n"
-                    "----------------------------------------\n"
-                    "1. View All Spaces \n"
-                    "2. Add New Space \n"
-                    "3. Update Existing Space \n"
-                    "4. Delete Space \n"
-                    "5. Back to Main Menu \n"
-                    "Please select an option 1-5: \n");
-
-    switch (choice) {
-    case 1:
-      clearConsole();
-      viewAllSpaces(manager);
-      break;
-    case 2:
-      clearConsole();
-      addNewSpace(manager);
-      break;
-    case 4:
-      clearConsole();
-      deleteSpace(manager);
-      break;
-    case 5:
-      clearConsole();
-      puts("Exiting Spaces Management Menu...\n");
-      return;
-    default:
-      clearConsole();
-      puts("Invalid choice. Please try again.\n");
-      break;
-    }
-  } while (choice != 5);
-}
-
 void viewAllSpaces(SpaceManager *manager) {
   if (!manager->fileLoaded) {
     puts("No spaces loaded, please load file first.");
