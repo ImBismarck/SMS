@@ -7,8 +7,9 @@
 
 int main() {
   int choice;
-  SpaceManager manager = {NULL, 0, 0, 0};
+  SpaceManager spaceManger = {NULL, 0, 0, 0};
+  ClientManager clientManager = {NULL, 0, 0, 0};
   clearConsole();
-  mainMenu(&manager);
+  mainMenu(&spaceManger, &clientManager);
   return 0;
 }

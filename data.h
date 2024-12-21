@@ -3,7 +3,7 @@
 
 #include "spaces.h"
 
-int loadFile(SpaceManager *manager);
-int saveFile(SpaceManager *manager);
+int loadFile(SpaceManager *manager, ClientManager *clientManager);
+int saveFile(SpaceManager *manager, ClientManager *clientManager);
 
 #endif

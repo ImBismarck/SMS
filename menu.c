@@ -1,4 +1,5 @@
 #include "menu.h"
+#include "clients.h"
 #include "input.h"
 #include "spaces.h"
 #include "utilities.h"
@@ -10,7 +11,48 @@ void manageReservations() {}
 void manageEquipments() {}
 void generateReports() {}
 
-void smsMenu(SpaceManager *manager) {
+void mainMenu(SpaceManager *spaceManager, ClientManager *clientManager) {
+  int choice;
+
+  do {
+    choice = getInt(1, 5,
+                    "----------------------------------------"
+                    "\n             Main Menu              \n"
+                    "----------------------------------------\n"
+                    "1. SMS Menu \n"
+                    "2. Load file \n"
+                    "3. Save file \n"
+                    "4. Exit \n"
+                    "Please select an option 1-4: ");
+
+    switch (choice) {
+    case 1:
+      clearConsole();
+      smsMenu(spaceManager, clientManager);
+      break;
+    case 2:
+      clearConsole();
+      loadFile(spaceManager, clientManager);
+      break;
+    case 3:
+      clearConsole();
+      saveFile(spaceManager, clientManager);
+      break;
+    case 4:
+      clearConsole();
+      puts("Exiting....");
+      free(spaceManager->spaces);
+      free(clientManager->clients);
+      return;
+    default:
+      clearConsole();
+      puts("Invalid choice, Please try again.\n");
+      break;
+    }
+  } while (choice != 4);
+}
+
+void smsMenu(SpaceManager *spaceManager, ClientManager *clientManager) {
   int choice;
   do {
     choice = getInt(1, 6,
@@ -28,10 +70,11 @@ void smsMenu(SpaceManager *manager) {
     switch (choice) {
     case 1:
       clearConsole();
-      spacesMenu(manager);
+      spacesMenu(spaceManager);
       break;
     case 2:
-      manageClients();
+      clearConsole();
+      clientsMenu(clientManager);
       break;
     case 3:
       manageReservations();
@@ -54,47 +97,7 @@ void smsMenu(SpaceManager *manager) {
   } while (choice != 6);
 }
 
-void mainMenu(SpaceManager *manager) {
-  int choice;
-
-  do {
-    choice = getInt(1, 5,
-                    "----------------------------------------"
-                    "\n             Main Menu              \n"
-                    "----------------------------------------\n"
-                    "1. SMS Menu \n"
-                    "2. Load file \n"
-                    "3. Save file \n"
-                    "4. Exit \n"
-                    "Please select an option 1-4: ");
-
-    switch (choice) {
-    case 1:
-      clearConsole();
-      smsMenu(manager);
-      break;
-    case 2:
-      clearConsole();
-      loadFile(manager);
-      break;
-    case 3:
-      clearConsole();
-      saveFile(manager);
-      break;
-    case 4:
-      clearConsole();
-      puts("Exiting....");
-      free(manager->spaces);
-      return;
-    default:
-      clearConsole();
-      puts("Invalid choice, Please try again.\n");
-      break;
-    }
-  } while (choice != 4);
-}
-
-void spacesMenu(SpaceManager *manager) {
+void spacesMenu(SpaceManager *spaceManager) {
   int choice;
 
   do {
@@ -112,23 +115,63 @@ void spacesMenu(SpaceManager *manager) {
     switch (choice) {
     case 1:
       clearConsole();
-      viewAllSpaces(manager);
+      viewAllSpaces(spaceManager);
       break;
     case 2:
       clearConsole();
-      addNewSpace(manager);
+      addNewSpace(spaceManager);
       break;
     case 3:
       clearConsole();
-      editSpace(manager);
+      editSpace(spaceManager);
       break;
     case 4:
       clearConsole();
-      deleteSpace(manager);
+      deleteSpace(spaceManager);
       break;
     case 5:
       clearConsole();
       puts("Exiting Spaces Management Menu...\n");
+      return;
+    default:
+      clearConsole();
+      puts("Invalid choice. Please try again.\n");
+      break;
+    }
+  } while (choice != 5);
+}
+
+void clientsMenu(ClientManager *clientManager) {
+  int choice;
+
+  do {
+    choice = getInt(1, 5,
+                    "----------------------------------------"
+                    "\n          Client Management          \n"
+                    "----------------------------------------\n"
+                    "1. View All Clients \n"
+                    "2. Add New Client \n"
+                    "3. Update Existing Client \n"
+                    "4. Delete Client \n"
+                    "5. Back to Main Menu \n"
+                    "Please select an option 1-5: \n");
+
+    switch (choice) {
+    case 1:
+      clearConsole();
+      viewAllClients(clientManager);
+      break;
+    case 2:
+      clearConsole();
+      addNewClient(clientManager);
+      break;
+    case 4:
+      clearConsole();
+      deleteClient(clientManager);
+      break;
+    case 5:
+      clearConsole();
+      puts("Exiting Client Management Menu...\n");
       return;
     default:
       clearConsole();

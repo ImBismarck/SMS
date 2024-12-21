@@ -4,7 +4,9 @@
 #include "data.h"
 #include "utilities.h"
 
-void smsMenu(SpaceManager *manager);
-void mainMenu(SpaceManager *manager);
-void spacesMenu(SpaceManager *manager);
+void smsMenu(SpaceManager *spaceManager, ClientManager *clientManager);
+void mainMenu(SpaceManager *spaceManager, ClientManager *clientManager);
+void spacesMenu(SpaceManager *spacesManager);
+void clientsMenu(ClientManager *clientsManager);
+
 #endif
