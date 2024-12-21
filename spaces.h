@@ -5,6 +5,7 @@
 
 void viewAllSpaces(SpaceManager *manager);
 void addNewSpace(SpaceManager *manager);
+void editSpace(SpaceManager *manager);
 void deleteSpace(SpaceManager *manager);
 
 #endif

@@ -36,7 +36,6 @@ int saveFile(SpaceManager *manager) {
   return 0;
 }
 
-// In data.c
 int loadFile(SpaceManager *manager) {
   // Free existing memory if any
   if (manager->spaces != NULL) {

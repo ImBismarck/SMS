@@ -132,3 +132,71 @@ void deleteSpace(SpaceManager *manager) {
   clearConsole();
   puts("Space deleted successfully");
 }
+
+void editSpace(SpaceManager *manager) {
+  int editId;
+  int foundSpaceId = -1;
+  char newName[MAX_NAME_LENGTH];
+  char newType[MAX_TYPE_LENGTH];
+  int newCapacity;
+
+  if (!manager->fileLoaded || manager->numSpaces == 0 ||
+      manager->spaces == NULL) {
+    puts("Not spaces available to edit");
+    return;
+  }
+
+  puts("----------------------------------------"
+       "\n             Edit Space              \n"
+       "----------------------------------------\n");
+
+  editId = getInt(1, manager->numSpaces, "Enter the ID of the space to edit: ");
+
+  // Finding the space to edit
+  for (int i = 0; i < manager->numSpaces; i++) {
+    if (manager->spaces[i].id == editId) {
+      foundSpaceId = i;
+      break;
+    }
+  }
+
+  if (foundSpaceId == -1) {
+    puts("Space with that ID was not found");
+    return;
+  }
+
+  // Display current values
+  puts("\nCurrent space details:");
+  printf("ID      : %d\n", manager->spaces[foundSpaceId].id);
+  printf("Name    : %s\n", manager->spaces[foundSpaceId].name);
+  printf("Type    : %s\n", manager->spaces[foundSpaceId].type);
+  printf("Capacity: %d\n\n", manager->spaces[foundSpaceId].capacity);
+
+  inputSpaceName(newName, MAX_NAME_LENGTH,
+                 "Enter new space name or 0 to keep current: ");
+  inputSpaceType(newType, MAX_TYPE_LENGTH,
+                 "Enter new space type or 0 to keep current:");
+  newCapacity = inputSpaceCapacity(
+      "Enter new space capacity or 0 to keep current: ", 0, 10000);
+
+  if (strcmp(newName, "0") != 0) {
+    strncpy(manager->spaces[foundSpaceId].name, newName, MAX_NAME_LENGTH - 1);
+    manager->spaces[foundSpaceId].name[MAX_NAME_LENGTH - 1] = '\0';
+  }
+  if (strcmp(newName, "0") != 0) {
+    strncpy(manager->spaces[foundSpaceId].type, newType, MAX_TYPE_LENGTH - 1);
+    manager->spaces[foundSpaceId].type[MAX_TYPE_LENGTH - 1] = '\0';
+  }
+  if (newCapacity > 0) {
+    manager->spaces[foundSpaceId].capacity = newCapacity;
+  }
+
+  manager->unsavedSpaces++;
+
+  clearConsole();
+  puts("\nSpace updated successfully!");
+  printf("ID      : %d\n", manager->spaces[foundSpaceId].id);
+  printf("Name    : %s\n", manager->spaces[foundSpaceId].name);
+  printf("Type    : %s\n", manager->spaces[foundSpaceId].type);
+  printf("Capacity: %d\n", manager->spaces[foundSpaceId].capacity);
+}

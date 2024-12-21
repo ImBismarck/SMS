@@ -118,6 +118,10 @@ void spacesMenu(SpaceManager *manager) {
       clearConsole();
       addNewSpace(manager);
       break;
+    case 3:
+      clearConsole();
+      editSpace(manager);
+      break;
     case 4:
       clearConsole();
       deleteSpace(manager);
