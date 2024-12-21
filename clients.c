@@ -107,6 +107,84 @@ void addNewClient(ClientManager *clientsManager) {
          newClient.registrationDate.tm_hour, newClient.registrationDate.tm_min);
 }
 
+void editClients(ClientManager *clientsManager) {
+  int editId;
+  int foundClientId = -1;
+  char newName[MAX_NAME_LENGTH];
+  char newPhoneNumber[MAX_PHONE_LENGTH];
+  char newEmail[MAX_EMAIL_LENGTH];
+  int newNif;
+
+  if (!clientsManager->fileLoaded || clientsManager->numClients == 0 ||
+      clientsManager->clients == NULL) {
+    clearConsole();
+    puts("No clients available to edit");
+    return;
+  }
+
+  puts("----------------------------------------"
+       "\n             Edit Client              \n"
+       "----------------------------------------\n");
+
+  editId = getInt(1, clientsManager->numClients,
+                  "Enter the ID of the client to edit: ");
+
+  for (int i = 0; i < clientsManager->numClients; i++) {
+    if (clientsManager->clients[i].id == editId) {
+      foundClientId = i;
+      break;
+    }
+  }
+
+  if (foundClientId == -1) {
+    puts("Client with that ID was not found");
+    return;
+  }
+
+  puts("\nCurrent client details:");
+  printf("ID: %d\n", clientsManager->clients[foundClientId].id);
+  printf("Name: %s\n", clientsManager->clients[foundClientId].name);
+  printf("Phone Number: %s\n",
+         clientsManager->clients[foundClientId].phoneNumber);
+  printf("Email: %s\n", clientsManager->clients[foundClientId].email);
+  printf("NIF: %d\n\n", clientsManager->clients[foundClientId].nif);
+
+  inputName(newName, MAX_NAME_LENGTH, "Enter new client name: ");
+  inputPhoneNumber(newPhoneNumber, MAX_PHONE_LENGTH,
+                   "Enter new phone number: ");
+  inputEmail(newEmail, MAX_EMAIL_LENGTH, "Enter new email: ");
+  newNif = inputNif(*clientsManager);
+
+  if (strcmp(newName, "0") != 0) {
+    strncpy(clientsManager->clients[foundClientId].name, newName,
+            MAX_NAME_LENGTH - 1);
+    clientsManager->clients[foundClientId].name[MAX_NAME_LENGTH - 1] = '\0';
+  }
+  if (strcmp(newPhoneNumber, "0") != 0) {
+    strncpy(clientsManager->clients[foundClientId].phoneNumber, newPhoneNumber,
+            MAX_PHONE_LENGTH - 1);
+    clientsManager->clients[foundClientId].phoneNumber[MAX_PHONE_LENGTH - 1] =
+        '\0';
+  }
+  if (strcmp(newEmail, "0") != 0) {
+    strncpy(clientsManager->clients[foundClientId].email, newEmail,
+            MAX_EMAIL_LENGTH - 1);
+    clientsManager->clients[foundClientId].email[MAX_EMAIL_LENGTH - 1] = '\0';
+  }
+  clientsManager->clients[foundClientId].nif = newNif;
+
+  clientsManager->unsavedClients++;
+
+  clearConsole();
+  puts("\nClient updated successfully!");
+  printf("ID: %d\n", clientsManager->clients[foundClientId].id);
+  printf("Name: %s\n", clientsManager->clients[foundClientId].name);
+  printf("Phone Number: %s\n",
+         clientsManager->clients[foundClientId].phoneNumber);
+  printf("Email: %s\n", clientsManager->clients[foundClientId].email);
+  printf("NIF: %d\n", clientsManager->clients[foundClientId].nif);
+}
+
 void deleteClient(ClientManager *clientsManager) {
   int deleteId;
   int foundSpaceId = -1;

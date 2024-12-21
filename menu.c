@@ -165,6 +165,10 @@ void clientsMenu(ClientManager *clientManager) {
       clearConsole();
       addNewClient(clientManager);
       break;
+    case 3:
+      clearConsole();
+      editClients(clientManager);
+      break;
     case 4:
       clearConsole();
       deleteClient(clientManager);
