@@ -119,6 +119,9 @@ void deleteSpace(SpaceManager *spacesManager) {
 
   spacesManager->numSpaces--;
   spacesManager->unsavedSpaces++;
+  if (spacesManager->savedSpaces > 0) {
+    spacesManager->savedSpaces--;
+  }
 
   if (spacesManager->numSpaces == 0) {
     // if no spaces left

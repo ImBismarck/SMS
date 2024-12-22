@@ -47,7 +47,9 @@ int saveFile(SpaceManager *spacesManager, ClientManager *clientManager) {
 
   fclose(file);
   puts("Successfully changes to file\n");
-  clientManager->unsavedClients = 0; // Reset unsaved counter after saving
+  spacesManager->savedSpaces = spacesManager->numSpaces;
+  clientManager->unsavedClients = 0;
+  spacesManager->unsavedSpaces = 0;
   return 0;
 }
 
@@ -117,7 +119,11 @@ int loadFile(SpaceManager *spacesManager, ClientManager *clientManager) {
 
   spacesManager->fileLoaded = 1;
   clientManager->fileLoaded = 1;
+
+  spacesManager->savedSpaces = spacesManager->numSpaces;
+  spacesManager->unsavedSpaces = 0;
+
   fclose(file);
   puts("Loaded files");
-  return spacesManager->numSpaces;
+  return 0;
 }

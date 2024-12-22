@@ -1,6 +1,7 @@
 #include "menu.h"
 #include "clients.h"
 #include "input.h"
+#include "reports.h"
 #include "spaces.h"
 #include "utilities.h"
 #include <stdio.h>
@@ -9,7 +10,6 @@
 void manageClients() {}
 void manageReservations() {}
 void manageEquipments() {}
-void generateReports() {}
 
 void mainMenu(SpaceManager *spaceManager, ClientManager *clientManager) {
   int choice;
@@ -83,7 +83,8 @@ void smsMenu(SpaceManager *spaceManager, ClientManager *clientManager) {
       manageEquipments();
       break;
     case 5:
-      generateReports();
+      clearConsole();
+      generateReports(spaceManager, clientManager);
       break;
     case 6:
       clearConsole();
@@ -183,4 +184,73 @@ void clientsMenu(ClientManager *clientManager) {
       break;
     }
   } while (choice != 5);
+}
+void generateReports(SpaceManager *spaceManager, ClientManager *clientManager) {
+  int choice;
+
+  do {
+    choice = getInt(1, 10,
+                    "----------------------------------------"
+                    "\n            Generate Reports           \n"
+                    "----------------------------------------\n"
+                    "1. Total Number of Spaces \n"
+                    "2. Spaces by Type \n"
+                    "3. Most and Least Reserved Spaces \n"
+                    "4. Total Registered Clients \n"
+                    "5. Client Reservation Details \n"
+                    "6. Most Active Clients \n"
+                    "7. Reservations by Status and Date \n"
+                    "8. Space Occupancy Rate \n"
+                    "9. Equipment Usage Details \n"
+                    "10. Back to Main Menu \n"
+                    "----------------------------------------\n"
+                    "Please select an option (1-10): \n");
+
+    switch (choice) {
+    case 1:
+      clearConsole();
+      reportTotalSpaces(spaceManager);
+      break;
+    case 2:
+      clearConsole();
+      // reportSpacesByType(spaceManager);
+      break;
+    case 3:
+      clearConsole();
+      // reportReservationTrends(spaceManager);
+      break;
+    case 4:
+      clearConsole();
+      // reportTotalClients(clientManager);
+      break;
+    case 5:
+      clearConsole();
+      // reportClientReservations(clientManager);
+      break;
+    case 6:
+      clearConsole();
+      // reportActiveClients(clientManager);
+      break;
+    case 7:
+      clearConsole();
+      // reportReservationsByStatusAndDate(spaceManager);
+      break;
+    case 8:
+      clearConsole();
+      // reportOccupancyRate(spaceManager);
+      break;
+    case 9:
+      clearConsole();
+      // reportEquipmentUsage(spaceManager);
+      break;
+    case 10:
+      clearConsole();
+      puts("Exiting Generate Reports Menu...\n");
+      return;
+    default:
+      clearConsole();
+      puts("Invalid choice. Please try again.\n");
+      break;
+    }
+  } while (choice != 10);
 }
