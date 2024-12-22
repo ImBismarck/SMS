@@ -155,23 +155,41 @@ void editClients(ClientManager *clientsManager) {
   inputEmail(newEmail, MAX_EMAIL_LENGTH, "Enter new email: ");
   newNif = inputNif(*clientsManager);
 
-  if (strcmp(newName, "0") != 0) {
-    strncpy(clientsManager->clients[foundClientId].name, newName,
-            MAX_NAME_LENGTH - 1);
-    clientsManager->clients[foundClientId].name[MAX_NAME_LENGTH - 1] = '\0';
-  }
-  if (strcmp(newPhoneNumber, "0") != 0) {
-    strncpy(clientsManager->clients[foundClientId].phoneNumber, newPhoneNumber,
-            MAX_PHONE_LENGTH - 1);
-    clientsManager->clients[foundClientId].phoneNumber[MAX_PHONE_LENGTH - 1] =
-        '\0';
-  }
-  if (strcmp(newEmail, "0") != 0) {
-    strncpy(clientsManager->clients[foundClientId].email, newEmail,
-            MAX_EMAIL_LENGTH - 1);
-    clientsManager->clients[foundClientId].email[MAX_EMAIL_LENGTH - 1] = '\0';
-  }
+  strncpy(clientsManager->clients[foundClientId].name, newName,
+          MAX_NAME_LENGTH - 1);
+  clientsManager->clients[foundClientId].name[MAX_NAME_LENGTH - 1] = '\0';
+
+  strncpy(clientsManager->clients[foundClientId].phoneNumber, newPhoneNumber,
+          MAX_PHONE_LENGTH - 1);
+  clientsManager->clients[foundClientId].phoneNumber[MAX_PHONE_LENGTH - 1] =
+      '\0';
+
+  strncpy(clientsManager->clients[foundClientId].email, newEmail,
+          MAX_EMAIL_LENGTH - 1);
+  clientsManager->clients[foundClientId].email[MAX_EMAIL_LENGTH - 1] = '\0';
+
   clientsManager->clients[foundClientId].nif = newNif;
+
+  // if (strcmp(newName, "0") != 0) {
+  //   strncpy(clientsManager->clients[foundClientId].name, newName,
+  //           MAX_NAME_LENGTH - 1);
+  //   clientsManager->clients[foundClientId].name[MAX_NAME_LENGTH - 1] = '\0';
+  // }
+  // if (strcmp(newPhoneNumber, "0") != 0) {
+  //   strncpy(clientsManager->clients[foundClientId].phoneNumber,
+  //   newPhoneNumber,
+  //           MAX_PHONE_LENGTH - 1);
+  //   clientsManager->clients[foundClientId].phoneNumber[MAX_PHONE_LENGTH - 1]
+  //   =
+  //       '\0';
+  // }
+  // if (strcmp(newEmail, "0") != 0) {
+  //   strncpy(clientsManager->clients[foundClientId].email, newEmail,
+  //           MAX_EMAIL_LENGTH - 1);
+  //   clientsManager->clients[foundClientId].email[MAX_EMAIL_LENGTH - 1] =
+  //   '\0';
+  // }
+  // clientsManager->clients[foundClientId].nif = newNif;
 
   clientsManager->unsavedClients++;
 

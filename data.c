@@ -41,6 +41,8 @@ int saveFile(SpaceManager *spacesManager, ClientManager *clientManager) {
     fwrite(clientManager->clients[i].email, sizeof(char), MAX_EMAIL_LENGTH,
            file);
     fwrite(&clientManager->clients[i].nif, sizeof(int), 1, file);
+    fwrite(&clientManager->clients[i].registrationDate, sizeof(struct tm), 1,
+           file);
   }
 
   fclose(file);
