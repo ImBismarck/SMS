@@ -213,7 +213,7 @@ void generateReports(SpaceManager *spaceManager, ClientManager *clientManager) {
       break;
     case 2:
       clearConsole();
-      // reportSpacesByType(spaceManager);
+      reportSpacesByType(spaceManager);
       break;
     case 3:
       clearConsole();
