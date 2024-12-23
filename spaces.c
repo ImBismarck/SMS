@@ -1,7 +1,7 @@
+#include "utilities.h"
 #include "spaces.h"
 #include "data.h"
 #include "input.h"
-#include "utilities.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

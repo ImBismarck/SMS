@@ -119,3 +119,6 @@ int inputNif(ClientManager clientManager) {
   } while (check == 0);
   return nif;
 }
+int inputID(const int min, int max, char *msg){
+  return getInt(min, max, msg);
+}

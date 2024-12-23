@@ -3,9 +3,9 @@
 
 #include "utilities.h"
 
-void viewAllSpaces(SpaceManager *manager);
-void addNewSpace(SpaceManager *manager);
-void editSpace(SpaceManager *manager);
-void deleteSpace(SpaceManager *manager);
+void viewAllSpaces(SpaceManager *spacesManager);
+void addNewSpace(SpaceManager *spacesManager);
+void editSpace(SpaceManager *spacesManager);
+void deleteSpace(SpaceManager *spacesManager);
 
 #endif

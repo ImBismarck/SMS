@@ -1,4 +1,5 @@
 #include "input.h"
+#include "utilities.h"
 #include <ctype.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -54,4 +55,14 @@ char getChar(const char *msg) {
   value = getchar();
   clearInputBuffer();
   return value;
+}
+
+const char *statusToString(ReservationStatus status) {
+  switch (status) {
+    case PENDING:   return "Pending";
+    case CONFIRMED: return "Confirmed";
+    case COMPLETED: return "Completed";
+    case CANCELED:  return "Canceled";
+    default:        return "Unknown";
+  }
 }

@@ -1,17 +1,16 @@
+#include "utilities.h"
 #include "menu.h"
 #include "clients.h"
 #include "input.h"
 #include "reports.h"
 #include "spaces.h"
-#include "utilities.h"
+#include "reservations.h"
 #include <stdio.h>
 #include <stdlib.h>
 
-void manageClients() {}
-void manageReservations() {}
 void manageEquipments() {}
 
-void mainMenu(SpaceManager *spaceManager, ClientManager *clientManager) {
+void mainMenu(SpaceManager *spaceManager, ClientManager *clientManager, ReservationManager *reservationsManager) {
   int choice;
 
   do {
@@ -28,21 +27,22 @@ void mainMenu(SpaceManager *spaceManager, ClientManager *clientManager) {
     switch (choice) {
     case 1:
       clearConsole();
-      smsMenu(spaceManager, clientManager);
+      smsMenu(spaceManager, clientManager, reservationsManager);
       break;
     case 2:
       clearConsole();
-      loadFile(spaceManager, clientManager);
+      loadFile(spaceManager, clientManager, reservationsManager);
       break;
     case 3:
       clearConsole();
-      saveFile(spaceManager, clientManager);
+      saveFile(spaceManager, clientManager, reservationsManager);
       break;
     case 4:
       clearConsole();
       puts("Exiting....");
       free(spaceManager->spaces);
       free(clientManager->clients);
+      free(reservationsManager->reservations);
       return;
     default:
       clearConsole();
@@ -52,7 +52,7 @@ void mainMenu(SpaceManager *spaceManager, ClientManager *clientManager) {
   } while (choice != 4);
 }
 
-void smsMenu(SpaceManager *spaceManager, ClientManager *clientManager) {
+void smsMenu(SpaceManager *spaceManager, ClientManager *clientManager, ReservationManager *reservationsManager) {
   int choice;
   do {
     choice = getInt(1, 6,
@@ -77,7 +77,8 @@ void smsMenu(SpaceManager *spaceManager, ClientManager *clientManager) {
       clientsMenu(clientManager);
       break;
     case 3:
-      manageReservations();
+      clearConsole();
+      reservationsMenu(reservationsManager, clientManager, spaceManager);
       break;
     case 4:
       manageEquipments();
@@ -185,9 +186,56 @@ void clientsMenu(ClientManager *clientManager) {
     }
   } while (choice != 5);
 }
+
+void reservationsMenu(ReservationManager *reservationManager, ClientManager *clientManager, SpaceManager *spacesManager){
+  int choice;
+
+  do {
+    choice = getInt(1, 5,
+                    "----------------------------------------"
+                    "\n          Reservation Management          \n"
+                    "----------------------------------------\n"
+                    "1. View All Reservations \n"
+                    "2. Add New Reservation \n"
+                    "3. Update Existing Reservation \n"
+                    "4. Delete Reservation \n"
+                    "5. Back to Main Menu \n"
+                    "Please select an option 1-5: \n");
+
+    switch (choice) {
+    case 1:
+      clearConsole();
+      viewAllReservations(reservationManager);
+      break;
+    case 2:
+      clearConsole();
+      addNewReservation(reservationManager, clientManager, spacesManager);
+      break;
+    case 3:
+      clearConsole();
+      editReservation(reservationManager, clientManager, spacesManager);
+      break;
+    case 4:
+      clearConsole();
+      deleteReservation(reservationManager);
+      break;
+    case 5:
+      clearConsole();
+      puts("Exiting Reservation Management Menu...\n");
+      return;
+    default:
+      clearConsole();
+      puts("Invalid choice. Please try again.\n");
+      break;
+    }
+  } while (choice != 5);
+}
+
 void generateReports(SpaceManager *spaceManager, ClientManager *clientManager) {
   int choice;
 
+
+// Gvidas, what do you think about option to go back be "0"? Easier to type, just an idea.
   do {
     choice = getInt(1, 10,
                     "----------------------------------------"
