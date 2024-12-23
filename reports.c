@@ -58,3 +58,20 @@ void reportSpacesByType(SpaceManager *spaceManager) {
     }
   }
 }
+
+void reportTotalClients(ClientManager *clientManager) {
+  // Check if the file is loaded and no unsaved changes
+  if (!clientManager->fileLoaded) {
+    puts("\nNo file loaded, please load a file first");
+    return;
+  }
+  if (clientManager->unsavedClients) {
+    puts("\nPlease save file first, before getting all the reports");
+    return;
+  }
+
+  puts("----------------------------------------");
+  puts("          Total Number of Clients        ");
+  puts("----------------------------------------");
+  printf("Registered clients: %d\n", clientManager->numClients);
+}

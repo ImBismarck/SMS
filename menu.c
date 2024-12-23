@@ -221,7 +221,8 @@ void generateReports(SpaceManager *spaceManager, ClientManager *clientManager) {
       break;
     case 4:
       clearConsole();
-      // reportTotalClients(clientManager);
+      reportTotalClients(clientManager);
+
       break;
     case 5:
       clearConsole();

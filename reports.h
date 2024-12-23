@@ -3,7 +3,12 @@
 
 #include "utilities.h"
 
+//Spaces
+void reportSpacesByType(SpaceManager *spaceManager);
 void reportTotalSpaces(SpaceManager *spaceManager);
-    void reportSpacesByType(SpaceManager *spaceManager);
+
+//Clients
+void reportTotalClients(ClientManager *clientManager);
+
 
 #endif
