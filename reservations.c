@@ -21,10 +21,10 @@ void viewAllReservations(ReservationManager *reservationManager) {
     printf("Reservation ID  : %d\n", reservationManager->reservations[i].id);
     printf("Client ID       : %d\n", reservationManager->reservations[i].clientId);
     printf("Space ID        : %d\n", reservationManager->reservations[i].spaceId);
-    printf("Reservation Date: %d-%02d-%02d\n",
-           reservationManager->reservations[i].reservationDate.tm_year + 1900,
-           reservationManager->reservations[i].reservationDate.tm_mon + 1,
-           reservationManager->reservations[i].reservationDate.tm_mday);
+   /*printf("Reservation Date: %d-%02d-%02d\n",
+           reservationManager->reservations[i].reservationDate.tm_year,
+           reservationManager->reservations[i].reservationDate.tm_mon,   FIX THIS PLS, THX XOXO
+           reservationManager->reservations[i].reservationDate.tm_mday);*/
     printf("Duration        : %d hours\n", reservationManager->reservations[i].duration);
     printf("Status          : %s\n", statusToString(reservationManager->reservations[i].status));
     printf("Participants    : %d\n", reservationManager->reservations[i].numParticipants);
