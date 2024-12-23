@@ -7,13 +7,16 @@ void reportTotalSpaces(SpaceManager *spaceManager) {
     puts("\nNo file loaded, please load a file first");
     return;
   }
+  if (spaceManager->unsavedSpaces) {
+    puts("\nPlease save file first, before getting all the reports");
+    return;
+  }
 
   puts("----------------------------------------");
   puts("          Total Number of Spaces         ");
   puts("----------------------------------------");
 
-  printf("Saved spaces: %d\n", spaceManager->savedSpaces);
-  printf("Unsaved spaces changes: %d\n", spaceManager->unsavedSpaces);
+  printf("Saved spaces: %d\n", spaceManager->numSpaces);
   puts("----------------------------------------");
 }
 
@@ -22,11 +25,14 @@ void reportSpacesByType(SpaceManager *spaceManager) {
     puts("\nNo file loaded, please load a file first");
     return;
   }
+  if (spaceManager->unsavedSpaces) {
+    puts("\nPlease save file first, before getting all the reports");
+    return;
+  }
 
   puts("----------------------------------------");
   puts("          Spaces by Type                 ");
   puts("----------------------------------------");
-
   for (int i = 0; i < spaceManager->numSpaces; i++) {
     int count = 0;
 

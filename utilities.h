@@ -18,7 +18,6 @@ typedef struct {
 typedef struct {
   Space *spaces;
   int numSpaces;
-  int savedSpaces;
   int unsavedSpaces;
   int fileLoaded;
 } SpaceManager;
