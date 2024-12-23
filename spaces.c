@@ -32,11 +32,26 @@ void addNewSpace(SpaceManager *spacesManager) { //
     return;
   }
 
+<<<<<<< HEAD
   int newId;
   char newName[MAX_NAME_LENGTH];
   char newType[MAX_TYPE_LENGTH];
   int newCapacity;
   Space *temp = NULL;
+=======
+  do {
+    puts("----------------------------------------");
+    puts("\n          Space Management          \n");
+    puts("----------------------------------------\n");
+    puts("1. View All Spaces");
+    puts("2. Add New Space");
+    puts("3. Update Existing Space");
+    puts("4. Delete Space");
+    puts("5. Back to Main Menu");
+    puts("----------------------------------------\n");
+    puts("Please select an option 1-5:");
+
+>>>>>>> 1e60e4dc6830a98dbfe7da665b8368802ad4c416
 
   // If memory is empty, allocate space for the first element
   if (spacesManager->spaces == NULL) {
